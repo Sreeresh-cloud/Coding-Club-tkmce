@@ -15,11 +15,10 @@ const Events = () => {
         year: '',
         emailId: '',
         mobileNo: '',
-        eventTitle: '',   // Add eventTitle to form data
-        eventDate: ''     // Add eventDate to form data
+        eventTitle: '',   
+        eventDate: ''    
     });
 
-    // Fetch upcoming events on component mount
     useEffect(() => {
         const fetchEvents = async () => {
             try {
@@ -38,11 +37,11 @@ const Events = () => {
     const handleRegisterClick = (event) => {
         setFormData({
             ...formData,
-            eventTitle: event.eventName,    // Set event title
-            eventDate: new Date(event.eventDate).toISOString(), // Convert to ISO string
+            eventTitle: event.eventName,    
+            eventDate: new Date(event.eventDate).toISOString(), 
 
         });
-        setDialogVisible(true); // Show the dialog
+        setDialogVisible(true); 
     };
 
     const handleInputChange = (e) => {
@@ -53,21 +52,21 @@ const Events = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/register`, formData); // Adjust the URL as needed
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/register`, formData); 
             console.log('Registration successful:', response.data);
-            setDialogVisible(false); // Close the dialog after submission
+            setDialogVisible(false); 
             setFormData({
                 name: '',
                 branch: '',
                 year: '',
                 emailId: '',
                 mobileNo: '',
-                eventTitle: '', // Reset event title
-                eventDate: ''   // Reset event date
-            }); // Reset form data
+                eventTitle: '',
+                eventDate: ''   
+            }); 
         } catch (error) {
             console.error("Error registering for event:", error);
-            // Optionally, you can show an error message to the user here
+            
         }
     };
 

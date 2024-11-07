@@ -42,10 +42,8 @@ const AdminEvents = () => {
         };
 
         fetchEvents();
-    }, []); // Empty dependency array to run only on mount
-
+    }, []); 
     const handleAddEvent = async () => {
-        // Prepare form data
         const formData = new FormData();
         formData.append("name", eventName);
         formData.append("description", eventDescription);
@@ -54,18 +52,17 @@ const AdminEvents = () => {
         formData.append("mode", eventMode);
         console.log("hi");
         if (eventImage) {
-            formData.append("image", eventImage); // Append the image file if it exists
+            formData.append("image", eventImage); 
         }
 
         try {
-            // Send POST request to the server
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/events`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
             console.log("Event Added", response.data);
-            setDialogVisible(false); // Close dialog after adding
+            setDialogVisible(false); 
             resetForm();
 
         } catch (error) {
@@ -78,8 +75,8 @@ const AdminEvents = () => {
         setEventDescription("");
         setEventDate(null);
         setEventVenue("");
-        setEventImage(""); // Reset to empty string
-        setEventMode(""); // Reset event mode
+        setEventImage(""); 
+        setEventMode(""); 
     };
 
     const onImageUpload = (e) => {
@@ -100,15 +97,15 @@ const AdminEvents = () => {
     const openRegistrationDialog = async (eventName) => {
 
         console.log("Opening registration dialog for event:", eventName);
-        setSelectedEvent(eventName); // Set the selected event ID
+        setSelectedEvent(eventName); 
     
         try {
             const encodedEventName = encodeURIComponent(eventName);
             const url = `${import.meta.env.VITE_API_URL}/events/${encodedEventName}/registrations`;
-            console.log("Constructed URL:", url);  // Log the URL to check if it's correct
+            console.log("Constructed URL:", url);  
             const response = await axios.get(url);
-            console.log("Fetched registrations:", response.data); // Log fetched registrations
-            setRegistrations(response.data); // Set the fetched registrations
+            console.log("Fetched registrations:", response.data); 
+            setRegistrations(response.data); 
         } catch (error) {
             console.error("Error fetching registrations", error);
         }
@@ -123,12 +120,10 @@ const AdminEvents = () => {
     };
 
     const downloadExcel = (data) => {
-        // Convert the data into a format that xlsx can understand
         const worksheet = XLSX.utils.json_to_sheet(data);
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "Registrations");
     
-        // Generate buffer and download the Excel file
         XLSX.writeFile(workbook, 'registrations.xlsx');
     };
 
@@ -149,7 +144,6 @@ const AdminEvents = () => {
             </Sidebar>
 
             <div className="flex-auto p-7 mb-7 sm:mb-20 sm:px-14">
-                {/* Title Section */}
                 <div className="flex sm:mt-7 mb-24">
                     <div className="font-black text-4xl sm:text-6xl">EVENTS</div>
                     <div className="flex-auto border-b-4 mb-2 ml-2"></div>
@@ -171,7 +165,6 @@ const AdminEvents = () => {
                     className="rounded-lg animate__animated animate__fadeInDown"
                 >
                     <div className="p-fluid flex flex-col gap-4">
-                        {/* Event Name */}
                         <div>
                             <label htmlFor="eventName" className="block mb-2">Event Name</label>
                             <InputText
@@ -182,7 +175,6 @@ const AdminEvents = () => {
                             />
                         </div>
 
-                        {/* Event Description */}
                         <div>
                             <label htmlFor="eventDescription" className="block mb-2">Event Description</label>
                             <InputTextarea
@@ -195,7 +187,6 @@ const AdminEvents = () => {
                             />
                         </div>
 
-                        {/* Date and Time */}
                         <div>
                             <label htmlFor="eventDate" className="block mb-2">Date and Time</label>
                             <Calendar
@@ -208,7 +199,6 @@ const AdminEvents = () => {
                             />
                         </div>
 
-                        {/* Venue */}
                         <div>
                             <label htmlFor="eventVenue" className="block mb-2">Venue</label>
                             <InputText
@@ -230,20 +220,18 @@ const AdminEvents = () => {
                             />
                         </div>
 
-                        {/* Image Upload */}
                         <div>
                             <label htmlFor="eventImage" className="block mb-2">Event Image</label>
                             <FileUpload
                                 id="eventImage"
                                 mode="basic"
                                 accept="image/*"
-                                maxFileSize={1000000} // Limit to 1MB
+                                maxFileSize={1000000} 
                                 onSelect={onImageUpload}
                                 chooseLabel="Choose Image"
                             />
                         </div>
 
-                        {/* Submit Button */}
                         <button
                             onClick={handleAddEvent}
                             className="mt-5 bg-gradient-to-r from-green-500 to-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:from-green-600 hover:to-blue-600 transition-colors duration-200"
@@ -304,7 +292,6 @@ const AdminEvents = () => {
                 </Dialog>
 
 
-                {/* Render Upcoming Events */}
                 <div className="mt-10">
                 <div className="flex sm:mt-7 mb-24">
                 <div className="font-black text-2xl sm:text-4xl">UPCOMING EVENTS</div>
