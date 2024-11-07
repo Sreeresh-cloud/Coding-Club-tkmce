@@ -1,3 +1,22 @@
 .about-us {
     clip-path: polygon(0 0, 100% 25%, 100% 100%, 0 75%);
 }
+
+/* In home.css */
+.admin-dashboard-container {
+    background: linear-gradient(to right, red, black);
+    color: white; /* Adjusts text color for better contrast */
+  }
+
+  /* In home.css */
+.header-container {
+    background: linear-gradient(to bottom, black, rgba(0, 0, 0, 0));
+    color: white; /* Adjusts text color for better contrast */
+    /* In home.css */
+    border-bottom-left-radius: 20px; /* Adjust the value as needed */
+    border-bottom-right-radius: 20px;
+
+  
+  }
+  
+  

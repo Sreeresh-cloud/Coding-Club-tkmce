@@ -1,17 +1,34 @@
-import EventPic from '../assets/Event Card.svg'
-const EventCard = () => {
-    return(
-        <div className='border-2 border-[#DE3500] p-2 flex flex-col gap-2'>
-            <img src={EventPic} className='object-center object-cover h-48 w-full'></img>
-            <div className='text-xl font-black text-center'>Computer Basics Workshop</div>
-            <div className='text-sm font-extrabold'>by John Doe</div>
-            <div className='font-montserrat'><span className='pi pi-calendar'></span><span className='font-black'> Event Date:</span>04-07-2023</div>
-            <div className='font-montserrat'><span className='pi pi-map-marker'></span><span className='font-black'> Venue:</span> TKMCE</div>
-            <div className='flex justify-center'>
-                <button type="button" className="text-white bg-[#DE3500] hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Register Here</button>
-            </div>
+// EventCard.js
+import PropTypes from 'prop-types';
+
+const handleRegister = ({ heading }) => {
+    alert(`You have registered for the event: ${heading}`);
+};
+
+const EventCard = ({ heading, text, image }) => {
+    return (
+        <div className="border border-gray-300 rounded-lg shadow-lg p-4 flex flex-col items-center">
+            {image && (
+                <img src={image} alt={heading} className="w-full h-48 object-cover rounded-lg mb-4" />
+            )}
+            <h3 className="text-xl font-bold mb-2">{heading}</h3>
+            <p className="text-gray-700 text-center">{text}</p>
+            {/* Register Button */}
+            <button
+                onClick={handleRegister} // Function for handling registration
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg mt-4"
+            >
+                Register
+            </button>
         </div>
     );
+};
+
+// Prop validation
+EventCard.propTypes = {
+    heading: PropTypes.string.isRequired, // Heading must be a string and is required
+    text: PropTypes.string.isRequired,    // Text must be a string and is required
+    image: PropTypes.string,               // Image can be a string (optional)
 };
 
 export default EventCard;
